@@ -12,6 +12,82 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+
+		<style>
+			/* ── Bloc présentation redesigné ── */
+			.intro-wrapper {
+				display: grid;
+				grid-template-columns: 1fr 260px;
+				grid-template-rows: auto auto;
+				gap: 0 2.5rem;
+				align-items: start;
+			}
+
+			/* Nom + titre : colonne gauche, ligne 1 */
+			.intro-header {
+				grid-column: 1;
+				grid-row: 1;
+			}
+
+			/* Photo : colonne droite, lignes 1+2 — collée en haut */
+			.intro-photo {
+				grid-column: 2;
+				grid-row: 1 / 4;
+				display: flex;
+				justify-content: center;
+				align-items: flex-start;
+				padding-top: 0.2rem;
+			}
+
+			.intro-photo img {
+				width: 220px;
+				height: 220px;
+				object-fit: cover;
+				border-radius: 50%;
+				display: block;
+			}
+
+			/* Texte biographie : colonne gauche, ligne 2 */
+			.intro-bio {
+				grid-column: 1;
+				grid-row: 2;
+				text-align: justify;
+				padding-right: 0.5rem;
+			}
+
+			/* Boutons : colonne gauche, ligne 3 */
+			.intro-actions {
+				grid-column: 1;
+				grid-row: 3;
+				margin-top: 1.2rem;
+			}
+
+			/* Supprime le style spotlight d'origine qui force flex */
+			#intro .spotlight {
+				display: block !important;
+			}
+
+			/* Responsive : repasse en colonne sur mobile */
+			@media screen and (max-width: 768px) {
+				.intro-wrapper {
+					grid-template-columns: 1fr;
+				}
+				.intro-photo {
+					grid-column: 1;
+					grid-row: 2;
+					justify-content: center;
+					margin-bottom: 1rem;
+				}
+				.intro-bio {
+					grid-column: 1;
+					grid-row: 3;
+				}
+				.intro-actions {
+					grid-column: 1;
+					grid-row: 4;
+				}
+			}
+		</style>
 	</head>
 	<body class="is-preload">
 
@@ -32,18 +108,33 @@
 
 						<!-- Introduction -->
 							<section id="intro" class="main">
-								<div class="spotlight">
-									<div class="content">
-										<header class="major">
+
+								<!-- Grille custom : header | photo / bio | photo / boutons | photo -->
+								<div class="intro-wrapper">
+
+									<!-- Colonne gauche · ligne 1 : Nom + titre -->
+									<div class="intro-header">
+										<header class="major" style="margin-bottom:0.8rem;">
 											<h2><strong>MENSAH Samuel</strong></h2>
 											<h3 style="text-align:left;"><strong>Data Scientist | Machine Learning · MLOps · Big Data &amp; IA</strong></h3>
 										</header>
-										<p style="text-align:justify"><span style="padding:0 0 0 30px;"></span>
+									</div>
+
+									<!-- Colonne droite · lignes 1-3 : Photo -->
+									<div class="intro-photo">
+										<img src="images/photo.png" alt="Photo Samuel MENSAH" />
+									</div>
+
+									<!-- Colonne gauche · ligne 2 : Biographie -->
+									<div class="intro-bio">
+										<p style="text-indent:2em; margin:0;">
 										Convaincu que la donnée est un levier stratégique de premier plan, j'ai construit un parcours académique d'excellence de niveau Bac+5, alliant rigueur scientifique et maîtrise opérationnelle des systèmes data modernes. J'ai d'abord obtenu un <b>Master Mathématiques Appliquées, Statistiques — parcours Statistique &amp; Data Science, Ingénierie Mathématique</b> à l'Université d'Orléans, où j'ai développé des fondements solides en statistiques inférentielles et bayésiennes, en machine learning supervisé et non supervisé, ainsi qu'en deep learning et réseaux de neurones (CNN, RNN, Transformers). Cette formation m'a appris à modéliser des phénomènes complexes avec exigence mathématique, aussi bien dans des contextes industriels (R&amp;D, ingénierie) que dans les secteurs de la santé, de la finance et de l'environnement. J'ai ensuite consolidé ce socle par un titre d'<b>Expert en Systèmes d'Information, spécialité Big Data &amp; IA</b> à l'École Léonard de Vinci (ESILV), programme Grande École reconnu au niveau Bac+5, qui m'a permis d'acquérir une vision à 360° des projets data en entreprise : définition de stratégie data, management de projets en ingénierie de données massives, gouvernance, gestion des risques et conformité (RGPD, qualité des données), conception et déploiement d'infrastructures cloud-native (Data Lakes, pipelines ETL/ELT, architectures Lambda et Kappa), ainsi que le développement et la mise en production de solutions d'IA avancées. Cette double compétence — <b>rigueur mathématique</b> et <b>vision système</b> — me permet d'intervenir sur l'ensemble de la chaîne de valeur de la donnée : de l'exploration et du nettoyage de jeux de données complexes, à la modélisation prédictive et au déploiement de modèles robustes en production (MLOps), en passant par la visualisation d'insights à forte valeur ajoutée pour les décideurs. Vous trouverez sur ce portfolio les répertoires GitHub de mes différents projets réalisés durant mon parcours.
 										</p>
+									</div>
 
-										<!-- Boutons CV / Attestation / Certificats -->
-										<ul class="actions" style="flex-wrap:wrap; gap:10px; align-items:center;">
+									<!-- Colonne gauche · ligne 3 : Boutons -->
+									<div class="intro-actions">
+										<ul class="actions" style="flex-wrap:wrap; gap:10px; align-items:center; margin:0;">
 											<li><a href="images/CV_Samuel_Mensah.pdf" class="button primary" target="_blank"><b>CV</b></a></li>
 											<li><a href="images/Attestation de réussite_Samuel_Mensah.pdf" class="button" target="_blank"><b>Attestation</b></a></li>
 											<li style="position:relative;">
@@ -79,36 +170,35 @@
 													   target="_blank"
 													   style="display:flex; align-items:flex-start; gap:10px; padding:10px 16px; color:#333; text-decoration:none; font-size:0.80em; line-height:1.4;"
 													   onmouseover="this.style.background='#f7f7f7'" onmouseout="this.style.background='#fff'">
-														<span style="font-size:1.2em; margin-top:1px;">🩹</span>
+														<span style="font-size:1.2em; margin-top:1px;">🔥</span>
 														<span>Équipier de 1ère intervention incendie — EPI-2<br/><span style="color:#888; font-size:0.9em;">Stoporisk · E-learning</span></span>
 													</a>
 												</div>
 											</li>
 										</ul>
-
-										<script>
-											(function() {
-												var btn = document.getElementById('certBtn');
-												var menu = document.getElementById('certMenu');
-												btn.addEventListener('click', function(e) {
-													e.stopPropagation();
-													menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'block' : 'none';
-												});
-												document.addEventListener('click', function() {
-													if (menu) menu.style.display = 'none';
-												});
-												menu.addEventListener('click', function(e) {
-													e.stopPropagation();
-												});
-											})();
-										</script>
-
 									</div>
-									<span class="image"><img src="images/photo.png" alt="Photo Samuel MENSAH" /></span>
-								</div>
+
+								</div><!-- /.intro-wrapper -->
+
+								<script>
+									(function() {
+										var btn = document.getElementById('certBtn');
+										var menu = document.getElementById('certMenu');
+										btn.addEventListener('click', function(e) {
+											e.stopPropagation();
+											menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'block' : 'none';
+										});
+										document.addEventListener('click', function() {
+											if (menu) menu.style.display = 'none';
+										});
+										menu.addEventListener('click', function(e) {
+											e.stopPropagation();
+										});
+									})();
+								</script>
 
 								<!-- Contact -->
-								<h2>Contact</h2>
+								<h2 style="margin-top:2.5rem;">Contact</h2>
 								<dl class="alt" style="display:flex; flex-direction:column; gap:12px;">
 									<div style="display:flex; align-items:center; gap:16px;">
 										<dt style="min-width:80px; margin:0;">Email</dt>
@@ -140,7 +230,7 @@
 									<!-- Data Science -->
 									<div>
 										<div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
-											
+											<img src="images/python.png" alt="Python" style="width:24px; height:24px; object-fit:contain;" />
 											<strong>Data Science</strong>
 										</div>
 										<div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
@@ -177,7 +267,7 @@
 									<!-- Data Analyst -->
 									<div>
 										<div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
-											
+											<img src="images/Rstudio.png" alt="R" style="width:24px; height:24px; object-fit:contain;" />
 											<strong>Data Analyst</strong>
 										</div>
 										<div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
@@ -208,7 +298,7 @@
 									<!-- MLOps & Déploiement -->
 									<div>
 										<div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
-											
+											<img src="images/docker.png" alt="MLOps" style="width:24px; height:24px; object-fit:contain;" />
 											<strong>MLOps &amp; Déploiement</strong>
 										</div>
 										<div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
