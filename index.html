@@ -1,476 +1,793 @@
 <!DOCTYPE HTML>
-<!--
-	Stellar by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-	Adapté pour MENSAH Samuel — Portfolio Data Science & Data Analyst
--->
-<html>
-	<head>
-		<title>Portfolio - Samuel MENSAH</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+<html lang="fr">
+<head>
+	<title>Portfolio - Samuel MENSAH</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
-		<style>
-			/* Photo flottante à droite — le texte l'entoure naturellement */
-			.intro-photo-float {
-				float: right;
-				margin: 0 0 1rem 2rem;
-			}
-			.intro-photo-float img {
-				width: 210px;
-				height: 210px;
-				object-fit: cover;
-				border-radius: 50%;
-				display: block;
-			}
-			/* Clearfix après le bloc flottant */
-			.intro-block::after {
-				content: "";
-				display: table;
-				clear: both;
-			}
-			#intro .spotlight {
-				display: block !important;
-			}
-		</style>
-	</head>
-	<body class="is-preload">
+	<style>
+		/* ══════════════════════════════════════════
+		   VARIABLES & RESET
+		══════════════════════════════════════════ */
+		:root {
+			--accent:       #00d4ff;
+			--accent2:      #7b5ea7;
+			--accent3:      #ff6b6b;
+			--bg-dark:      #0a0e1a;
+			--bg-card:      rgba(255,255,255,0.04);
+			--border:       rgba(255,255,255,0.08);
+			--text:         #e8eaf0;
+			--text-muted:   rgba(232,234,240,0.5);
+			--font-display: 'Syne', sans-serif;
+			--font-body:    'DM Sans', sans-serif;
+			--radius:       14px;
+			--transition:   0.35s cubic-bezier(0.4, 0, 0.2, 1);
+		}
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+		/* override Stellar globals */
+		body { font-family: var(--font-body) !important; background: var(--bg-dark) !important; color: var(--text) !important; }
+		h1,h2,h3,h4,h5,h6 { font-family: var(--font-display) !important; }
 
-				<!-- Nav -->
-					<nav id="nav">
-						<ul>
-							<li><a href="#intro" class="active">Présentation</a></li>
-							<li><a href="#first">Data Science</a></li>
-							<li><a href="#second">Data Analyst</a></li>
-						</ul>
-					</nav>
+		/* ══════════════════════════════════════════
+		   ANIMATED BACKGROUND
+		══════════════════════════════════════════ */
+		body::before {
+			content: '';
+			position: fixed;
+			inset: 0;
+			z-index: -1;
+			background:
+				radial-gradient(ellipse 80% 60% at 10% 10%, rgba(0,212,255,0.07) 0%, transparent 60%),
+				radial-gradient(ellipse 60% 50% at 90% 80%, rgba(123,94,167,0.08) 0%, transparent 55%),
+				radial-gradient(ellipse 50% 40% at 50% 50%, rgba(255,107,107,0.04) 0%, transparent 60%),
+				#0a0e1a;
+			animation: bgPulse 12s ease-in-out infinite alternate;
+		}
+		@keyframes bgPulse {
+			0%   { filter: hue-rotate(0deg); }
+			100% { filter: hue-rotate(20deg); }
+		}
 
-				<!-- Main -->
-					<div id="main">
+		/* ══════════════════════════════════════════
+		   NAV
+		══════════════════════════════════════════ */
+		#nav {
+			background: rgba(10,14,26,0.7) !important;
+			backdrop-filter: blur(20px) !important;
+			border-bottom: 1px solid var(--border) !important;
+			box-shadow: none !important;
+		}
+		#nav ul li a {
+			font-family: var(--font-display) !important;
+			font-weight: 600 !important;
+			font-size: 0.82em !important;
+			letter-spacing: 0.08em !important;
+			text-transform: uppercase !important;
+			color: var(--text-muted) !important;
+			transition: color var(--transition) !important;
+		}
+		#nav ul li a:hover,
+		#nav ul li a.active { color: var(--accent) !important; }
 
-						<!-- Introduction -->
-							<section id="intro" class="main">
+		/* ══════════════════════════════════════════
+		   SECTION WRAPPERS
+		══════════════════════════════════════════ */
+		.main { background: transparent !important; border: none !important; box-shadow: none !important; }
 
-								<div class="intro-block">
+		/* ══════════════════════════════════════════
+		   INTRO SECTION
+		══════════════════════════════════════════ */
+		#intro { padding: 5rem 3rem 3rem !important; }
 
-									<!-- Photo flottante à droite -->
-									<div class="intro-photo-float">
-										<img src="images/photo.png" alt="Photo Samuel MENSAH" />
-									</div>
+		/* Photo float */
+		.intro-photo-float {
+			float: right;
+			margin: 0 0 1.5rem 2.5rem;
+			position: relative;
+		}
+		.intro-photo-float::before {
+			content: '';
+			position: absolute;
+			inset: -4px;
+			border-radius: 50%;
+			background: conic-gradient(var(--accent), var(--accent2), var(--accent3), var(--accent));
+			animation: spinBorder 4s linear infinite;
+			z-index: 0;
+		}
+		.intro-photo-float::after {
+			content: '';
+			position: absolute;
+			inset: -12px;
+			border-radius: 50%;
+			background: conic-gradient(transparent 60%, rgba(0,212,255,0.15) 80%, transparent 100%);
+			animation: spinBorder 6s linear infinite reverse;
+			z-index: 0;
+		}
+		@keyframes spinBorder {
+			to { transform: rotate(360deg); }
+		}
+		.intro-photo-float img {
+			width: 200px;
+			height: 200px;
+			object-fit: cover;
+			border-radius: 50%;
+			display: block;
+			position: relative;
+			z-index: 1;
+			border: 3px solid var(--bg-dark);
+		}
 
-									<!-- Nom + titre -->
-									<header class="major" style="margin-bottom:0.8rem;">
-										<h2><strong>MENSAH Samuel</strong></h2>
-										<h3 style="text-align:left;"><strong>Data Scientist | Machine Learning · MLOps · Big Data &amp; IA</strong></h3>
-									</header>
+		/* Name */
+		#intro h2 {
+			font-size: 3em !important;
+			font-weight: 800 !important;
+			letter-spacing: -0.02em !important;
+			line-height: 1.05 !important;
+			background: linear-gradient(135deg, #ffffff 0%, var(--accent) 60%, var(--accent2) 100%);
+			-webkit-background-clip: text !important;
+			-webkit-text-fill-color: transparent !important;
+			background-clip: text !important;
+			margin-bottom: 0.3rem !important;
+			animation: fadeSlideUp 0.8s ease both;
+		}
 
-									<!-- Biographie : texte qui longe la photo et continue en dessous -->
-									<p style="text-indent:2em; text-align:justify; margin:0 0 0.85em 0;">
-									Convaincu que la donnée est un levier stratégique de premier plan, j'ai construit un parcours académique d'excellence de niveau Bac+5, alliant rigueur scientifique et maîtrise opérationnelle des systèmes data modernes. J'ai d'abord obtenu un <b>Master Mathématiques Appliquées, Statistiques — parcours Statistique &amp; Data Science, Ingénierie Mathématique</b> à l'Université d'Orléans, où j'ai développé des fondements solides en statistiques inférentielles et bayésiennes, en machine learning supervisé et non supervisé, ainsi qu'en deep learning et réseaux de neurones (CNN, RNN, Transformers). Cette formation m'a appris à modéliser des phénomènes complexes avec exigence mathématique, aussi bien dans des contextes industriels (R&amp;D, ingénierie) que dans les secteurs de la santé, de la finance et de l'environnement. J'ai ensuite consolidé ce socle par un titre d'<b>Expert en Systèmes d'Information, spécialité Big Data &amp; IA</b> à l'École Léonard de Vinci (ESILV), programme Grande École reconnu au niveau Bac+5, qui m'a permis d'acquérir une vision à 360° des projets data en entreprise : définition de stratégie data, management de projets en ingénierie de données massives, gouvernance, gestion des risques et conformité (RGPD, qualité des données), conception et déploiement d'infrastructures cloud-native (Data Lakes, pipelines ETL/ELT, architectures Lambda et Kappa), ainsi que le développement et la mise en production de solutions d'IA avancées. Cette double compétence — <b>rigueur mathématique</b> et <b>vision système</b> — me permet d'intervenir sur l'ensemble de la chaîne de valeur de la donnée : de l'exploration et du nettoyage de jeux de données complexes, à la modélisation prédictive et au déploiement de modèles robustes en production (MLOps), en passant par la visualisation d'insights à forte valeur ajoutée pour les décideurs. Vous trouverez sur ce portfolio les répertoires GitHub de mes différents projets réalisés durant mon parcours.
-									</p>
-									<br>
+		/* Subtitle */
+		#intro h3 {
+			font-size: 0.95em !important;
+			font-weight: 400 !important;
+			font-family: var(--font-body) !important;
+			color: var(--text-muted) !important;
+			letter-spacing: 0.04em !important;
+			border-left: 3px solid var(--accent) !important;
+			padding-left: 0.8rem !important;
+			margin-bottom: 1.4rem !important;
+			animation: fadeSlideUp 0.8s 0.15s ease both;
+		}
 
-									<!-- Boutons -->
-									<ul class="actions" style="flex-wrap:wrap; gap:10px; align-items:center; margin:1.2rem 0 0 0;">
-										<li><a href="images/CV_Samuel_Mensah.pdf" class="button primary" target="_blank"><b>CV</b></a></li>
-										<li><a href="images/Attestation de réussite_Samuel_Mensah.pdf" class="button" target="_blank"><b>Attestation</b></a></li>
-										<li style="position:relative;">
-											<button class="button" id="certBtn" style="cursor:pointer; font-weight:bold; font-family:inherit; font-size:inherit;">Certificats &#9660;</button>
-											<div id="certMenu" style="
-												display:none;
-												position:absolute;
-												top:110%;
-												left:0;
-												background:#fff;
-												border:1px solid #ddd;
-												border-radius:8px;
-												box-shadow:0 4px 20px rgba(0,0,0,0.13);
-												z-index:9999;
-												min-width:340px;
-												padding:6px 0;
-											">
-												<a href="images/KODJO-SAMUEL-MENSAH-Devenir-secouriste-8211-les-gestes-qui-sauvent-en-videos-Attestation-de-formation--Gestes-qui-sauvent-en-videos-E-learning-Stoporisk.pdf"
-												   target="_blank"
-												   style="display:flex; align-items:flex-start; gap:10px; padding:10px 16px; color:#333; text-decoration:none; font-size:0.80em; border-bottom:1px solid #f0f0f0; line-height:1.4;"
-												   onmouseover="this.style.background='#f7f7f7'" onmouseout="this.style.background='#fff'">
-													<span style="font-size:1.2em; margin-top:1px;">🩹</span>
-													<span>Gestes qui sauvent en vidéos<br/><span style="color:#888; font-size:0.9em;">Stoporisk · E-learning</span></span>
-												</a>
-												<a href="images/KODJO-SAMUEL-MENSAH-Devenir-secouriste-Les-gestes-qui-sauvent-Attestation-de-formation--Gestes-qui-sauvent-E-learning-Stoporisk.pdf"
-												   target="_blank"
-												   style="display:flex; align-items:flex-start; gap:10px; padding:10px 16px; color:#333; text-decoration:none; font-size:0.80em; border-bottom:1px solid #f0f0f0; line-height:1.4;"
-												   onmouseover="this.style.background='#f7f7f7'" onmouseout="this.style.background='#fff'">
-													<span style="font-size:1.2em; margin-top:1px;">🩹</span>
-													<span>Devenir secouriste — Gestes qui sauvent<br/><span style="color:#888; font-size:0.9em;">Stoporisk · E-learning</span></span>
-												</a>
-												<a href="images/KODJO-SAMUEL-MENSAH-Equipier-de-1ere-intervention-incendie-Attestation-de-formation--EPI-2-E-learning-Stoporisk.pdf"
-												   target="_blank"
-												   style="display:flex; align-items:flex-start; gap:10px; padding:10px 16px; color:#333; text-decoration:none; font-size:0.80em; line-height:1.4;"
-												   onmouseover="this.style.background='#f7f7f7'" onmouseout="this.style.background='#fff'">
-													<span style="font-size:1.2em; margin-top:1px;">🔥</span>
-													<span>Équipier de 1ère intervention incendie — EPI-2<br/><span style="color:#888; font-size:0.9em;">Stoporisk · E-learning</span></span>
-												</a>
-											</div>
-										</li>
-									</ul>
+		/* Bio text */
+		#intro p {
+			font-size: 0.92em !important;
+			line-height: 1.85 !important;
+			color: rgba(232,234,240,0.78) !important;
+			animation: fadeSlideUp 0.8s 0.3s ease both;
+		}
 
-								</div><!-- /.intro-block -->
+		@keyframes fadeSlideUp {
+			from { opacity: 0; transform: translateY(24px); }
+			to   { opacity: 1; transform: translateY(0); }
+		}
 
-								<script>
-									(function() {
-										var btn = document.getElementById('certBtn');
-										var menu = document.getElementById('certMenu');
-										btn.addEventListener('click', function(e) {
-											e.stopPropagation();
-											menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'block' : 'none';
-										});
-										document.addEventListener('click', function() {
-											if (menu) menu.style.display = 'none';
-										});
-										menu.addEventListener('click', function(e) {
-											e.stopPropagation();
-										});
-									})();
-								</script>
+		/* ── Buttons ── */
+		.btn-row {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			margin-top: 1.6rem;
+			animation: fadeSlideUp 0.8s 0.45s ease both;
+		}
+		.btn-modern {
+			display: inline-flex;
+			align-items: center;
+			gap: 7px;
+			padding: 10px 22px;
+			border-radius: 50px;
+			font-family: var(--font-display);
+			font-weight: 600;
+			font-size: 0.82em;
+			letter-spacing: 0.05em;
+			text-transform: uppercase;
+			text-decoration: none;
+			cursor: pointer;
+			transition: all var(--transition);
+			border: none;
+			position: relative;
+			overflow: hidden;
+		}
+		.btn-modern::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: rgba(255,255,255,0.1);
+			opacity: 0;
+			transition: opacity var(--transition);
+		}
+		.btn-modern:hover::before { opacity: 1; }
+		.btn-primary-mod {
+			background: linear-gradient(135deg, var(--accent), #0099bb);
+			color: #0a0e1a !important;
+			box-shadow: 0 4px 20px rgba(0,212,255,0.3);
+		}
+		.btn-primary-mod:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,212,255,0.45); }
+		.btn-secondary-mod {
+			background: var(--bg-card);
+			color: var(--text) !important;
+			border: 1px solid var(--border);
+			backdrop-filter: blur(10px);
+		}
+		.btn-secondary-mod:hover { border-color: var(--accent); color: var(--accent) !important; transform: translateY(-2px); }
 
-								<!-- Contact -->
-								<h2 style="margin-top:2.5rem;">Contact</h2>
-								<dl class="alt" style="display:flex; flex-direction:column; gap:12px;">
-									<div style="display:flex; align-items:center; gap:16px;">
-										<dt style="min-width:80px; margin:0;">Email</dt>
-										<dd style="margin:0;">mensahkodjosamuel26@gmail.com</dd>
-									</div>
-									<div style="display:flex; align-items:center; gap:16px;">
-										<dt style="min-width:80px; margin:0;">LinkedIn</dt>
-										<dd style="margin:0;">
-											<a href="https://www.linkedin.com/in/samuel-mensah-699592221" class="icon brands fa-linkedin alt" target="_blank" style="display:inline-flex; align-items:center; gap:8px;">
-												<span class="label">LinkedIn</span>
-											</a>
-										</dd>
-									</div>
-									<div style="display:flex; align-items:center; gap:16px;">
-										<dt style="min-width:80px; margin:0;">GitHub</dt>
-										<dd style="margin:0;">
-											<a href="https://github.com/Ecknard?tab=repositories" class="icon brands fa-github alt" target="_blank" style="display:inline-flex; align-items:center; gap:8px;">
-												<span class="label">GitHub</span>
-											</a>
-										</dd>
-									</div>
-								</dl>
+		/* Dropdown certificats */
+		.cert-wrapper { position: relative; }
+		#certMenu {
+			position: absolute;
+			top: calc(100% + 8px);
+			left: 0;
+			background: rgba(15,20,35,0.97);
+			backdrop-filter: blur(20px);
+			border: 1px solid var(--border);
+			border-radius: var(--radius);
+			box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+			z-index: 9999;
+			min-width: 340px;
+			padding: 6px 0;
+			display: none;
+		}
+		#certMenu a {
+			display: flex;
+			align-items: flex-start;
+			gap: 10px;
+			padding: 10px 16px;
+			color: var(--text) !important;
+			text-decoration: none;
+			font-size: 0.80em;
+			border-bottom: 1px solid var(--border);
+			line-height: 1.4;
+			transition: background var(--transition);
+		}
+		#certMenu a:last-child { border-bottom: none; }
+		#certMenu a:hover { background: rgba(0,212,255,0.06); }
+		#certMenu a span.sub { color: var(--text-muted); font-size: 0.88em; display: block; margin-top: 2px; }
 
-								<!-- Compétences principales -->
-								<h2 style="margin-top:2rem;">Compétences principales</h2>
+		/* ══════════════════════════════════════════
+		   CONTACT
+		══════════════════════════════════════════ */
+		.contact-grid {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 12px;
+			margin-top: 1rem;
+		}
+		.contact-pill {
+			display: inline-flex;
+			align-items: center;
+			gap: 10px;
+			padding: 10px 18px;
+			background: var(--bg-card);
+			border: 1px solid var(--border);
+			border-radius: 50px;
+			font-size: 0.85em;
+			color: var(--text) !important;
+			text-decoration: none;
+			transition: all var(--transition);
+			backdrop-filter: blur(10px);
+		}
+		.contact-pill:hover {
+			border-color: var(--accent);
+			color: var(--accent) !important;
+			transform: translateY(-2px);
+			box-shadow: 0 6px 20px rgba(0,212,255,0.15);
+		}
+		.contact-pill .icon { font-size: 1.1em; }
+		.contact-label { font-weight: 500; font-family: var(--font-display); font-size: 0.78em; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
 
-								<div style="display:flex; flex-direction:column; gap:1.5rem; margin-top:1rem;">
+		/* ══════════════════════════════════════════
+		   SECTION TITLE
+		══════════════════════════════════════════ */
+		.section-title {
+			font-family: var(--font-display) !important;
+			font-size: 1.3em !important;
+			font-weight: 700 !important;
+			margin: 2.5rem 0 1rem !important;
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			color: var(--text) !important;
+		}
+		.section-title::after {
+			content: '';
+			flex: 1;
+			height: 1px;
+			background: linear-gradient(to right, var(--border), transparent);
+		}
 
-									<!-- Data Science -->
-									<div>
-										<div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
-											
-											<strong>Data Science</strong>
-										</div>
-										<div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
-											<span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border:1px solid #ccc;border-radius:20px;font-size:0.78em;">
-												<img src="images/python.png" style="width:28px;height:28px;object-fit:contain;" alt=""/> Python
-											</span>
-											<span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border:1px solid #ccc;border-radius:20px;font-size:0.78em;">
-												<img src="images/Rstudio.png" style="width:28px;height:28px;object-fit:contain;" alt=""/> R
-											</span>
-											<span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border:1px solid #ccc;border-radius:20px;font-size:0.78em;">
-												SQL
-											</span>
-											<span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border:1px solid #ccc;border-radius:20px;font-size:0.78em;">
-												Machine Learning
-											</span>
-											<span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border:1px solid #ccc;border-radius:20px;font-size:0.78em;">
-												Deep Learning
-											</span>
-											<span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border:1px solid #ccc;border-radius:20px;font-size:0.78em;">
-												<img src="images/computer_vision.png" style="width:28px;height:28px;object-fit:contain;" alt=""/> Computer Vision
-											</span>
-											<span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border:1px solid #ccc;border-radius:20px;font-size:0.78em;">
-												NLP
-											</span>
-											<span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border:1px solid #ccc;border-radius:20px;font-size:0.78em;">
-												<img src="images/pyspark.png" style="width:28px;height:28px;object-fit:contain;" alt=""/> PySpark
-											</span>
-											<span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border:1px solid #ccc;border-radius:20px;font-size:0.78em;">
-												<img src="images/Cloud Computing.png" style="width:28px;height:28px;object-fit:contain;" alt=""/> AWS · Azure
-											</span>
-										</div>
-									</div>
+		/* ══════════════════════════════════════════
+		   SKILL PILLS
+		══════════════════════════════════════════ */
+		.skills-group { margin-bottom: 1.6rem; }
+		.skills-group-label {
+			font-family: var(--font-display);
+			font-size: 0.72em;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 0.12em;
+			color: var(--accent);
+			margin-bottom: 10px;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+		}
+		.skills-group-label::before {
+			content: '';
+			width: 20px;
+			height: 2px;
+			background: var(--accent);
+			border-radius: 2px;
+		}
+		.pills-row {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 8px;
+		}
+		.pill {
+			display: inline-flex;
+			align-items: center;
+			gap: 7px;
+			padding: 7px 14px;
+			background: var(--bg-card);
+			border: 1px solid var(--border);
+			border-radius: 50px;
+			font-size: 0.80em;
+			font-family: var(--font-body);
+			color: var(--text);
+			transition: all var(--transition);
+			cursor: default;
+			backdrop-filter: blur(8px);
+		}
+		.pill:hover {
+			border-color: var(--accent);
+			color: var(--accent);
+			background: rgba(0,212,255,0.06);
+			transform: translateY(-2px);
+			box-shadow: 0 4px 16px rgba(0,212,255,0.12);
+		}
+		.pill img {
+			width: 22px;
+			height: 22px;
+			object-fit: contain;
+			border-radius: 3px;
+		}
 
-									<!-- Data Analyst -->
-									<div>
-										<div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
-											
-											<strong>Data Analyst</strong>
-										</div>
-										<div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
-											<span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border:1px solid #ccc;border-radius:20px;font-size:0.78em;">
-												<img src="images/python.png" style="width:28px;height:28px;object-fit:contain;" alt=""/> Python
-											</span>
-											<span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border:1px solid #ccc;border-radius:20px;font-size:0.78em;">
-												<img src="images/Rstudio.png" style="width:28px;height:28px;object-fit:contain;" alt=""/> R
-											</span>
-											<span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border:1px solid #ccc;border-radius:20px;font-size:0.78em;">
-												SQL
-											</span>
-											<span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border:1px solid #ccc;border-radius:20px;font-size:0.78em;">
-												Analyse Exploratoire
-											</span>
-											<span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border:1px solid #ccc;border-radius:20px;font-size:0.78em;">
-												Analyses Statistiques
-											</span>
-											<span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border:1px solid #ccc;border-radius:20px;font-size:0.78em;">
-												<img src="images/tableau.png" style="width:28px;height:28px;object-fit:contain;" alt=""/> Tableau
-											</span>
-											<span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border:1px solid #ccc;border-radius:20px;font-size:0.78em;">
-												<img src="images/power_bi.png" style="width:28px;height:28px;object-fit:contain;" alt=""/> Power BI
-											</span>
-										</div>
-									</div>
+		/* ══════════════════════════════════════════
+		   DATA SCIENCE / ANALYST SECTIONS
+		══════════════════════════════════════════ */
+		#first, #second {
+			background: transparent !important;
+			border: none !important;
+		}
+		#first .major h2, #second .major h2 {
+			font-family: var(--font-display) !important;
+			font-size: 2.2em !important;
+			font-weight: 800 !important;
+			background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+			-webkit-background-clip: text !important;
+			-webkit-text-fill-color: transparent !important;
+			background-clip: text !important;
+		}
 
-									<!-- MLOps & Déploiement -->
-									<div>
-										<div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
-											
-											<strong>MLOps &amp; Déploiement</strong>
-										</div>
-										<div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
-											<span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border:1px solid #ccc;border-radius:20px;font-size:0.78em;">
-												<img src="images/MLflow.png" style="width:28px;height:28px;object-fit:contain;" alt=""/> MLflow
-											</span>
-											<span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border:1px solid #ccc;border-radius:20px;font-size:0.78em;">
-												<img src="images/docker.png" style="width:28px;height:28px;object-fit:contain;" alt=""/> Docker
-											</span>
-											<span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border:1px solid #ccc;border-radius:20px;font-size:0.78em;">
-												<img src="images/api.png" style="width:28px;height:28px;object-fit:contain;" alt=""/> API REST
-											</span>
-											<span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border:1px solid #ccc;border-radius:20px;font-size:0.78em;">
-												<img src="images/streamlit.png" style="width:28px;height:28px;object-fit:contain;" alt=""/> Streamlit
-											</span>
-											<span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border:1px solid #ccc;border-radius:20px;font-size:0.78em;">
-												<img src="images/git.png" style="width:28px;height:28px;object-fit:contain;" alt=""/> Git
-											</span>
-										</div>
-									</div>
+		/* Stats badges */
+		.statistics li {
+			background: var(--bg-card) !important;
+			border: 1px solid var(--border) !important;
+			border-radius: var(--radius) !important;
+			backdrop-filter: blur(10px) !important;
+			transition: all var(--transition) !important;
+		}
+		.statistics li:hover {
+			border-color: var(--accent) !important;
+			transform: translateY(-4px) !important;
+			box-shadow: 0 10px 30px rgba(0,212,255,0.1) !important;
+		}
+		.statistics li strong { color: var(--accent) !important; font-family: var(--font-display) !important; }
 
-								</div>
+		/* Project cards */
+		.features li {
+			background: var(--bg-card) !important;
+			border: 1px solid var(--border) !important;
+			border-radius: var(--radius) !important;
+			backdrop-filter: blur(10px) !important;
+			transition: all var(--transition) !important;
+			overflow: hidden !important;
+			padding: 0 !important;
+		}
+		.features li:hover {
+			border-color: rgba(0,212,255,0.35) !important;
+			transform: translateY(-6px) !important;
+			box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,212,255,0.1) !important;
+		}
+		.features article { padding: 1.2rem !important; }
+		.features .image { border-radius: calc(var(--radius) - 2px) var(--radius) 0 0 !important; overflow: hidden !important; }
+		.features .image img { transition: transform 0.6s ease !important; }
+		.features li:hover .image img { transform: scale(1.04) !important; }
+		.features h3 {
+			font-family: var(--font-display) !important;
+			font-size: 0.9em !important;
+			font-weight: 700 !important;
+			color: var(--text) !important;
+			margin-top: 0.8rem !important;
+		}
+		.features p { color: var(--text-muted) !important; font-size: 0.82em !important; line-height: 1.6 !important; }
+		.features p:last-child {
+			font-size: 0.70em !important;
+			letter-spacing: 0.06em !important;
+			color: var(--accent) !important;
+			opacity: 0.7 !important;
+		}
 
-							</section>
+		/* ══════════════════════════════════════════
+		   FOOTER
+		══════════════════════════════════════════ */
+		#footer {
+			background: rgba(10,14,26,0.8) !important;
+			border-top: 1px solid var(--border) !important;
+			color: var(--text-muted) !important;
+		}
+		#footer a { color: var(--accent) !important; }
 
-						<!-- Data Science Section -->
-							<section id="first" class="main special">
-								<header class="major">
-									<h2>Data Science</h2>
-									<ul class="statistics">
-										<li class="style1">
-											<span class="icon fa-folder-open"></span>
-											<strong>7</strong> Projets totaux
-										</li>
-										<li class="style3">
-											<span class="icon solid fa-graduation-cap"></span><br/>
-											Titre RNCP <strong>Niveau 7</strong> (Bac+5)
-										</li>
-										<li class="style4">
-											<span class="icon solid fa-university"></span><br/>
-											Formation<br/>
-											Mathématiques appliquées statistiques, Big data et IA
-										</li>
-									</ul>
-									<p>Vous trouverez ici les répertoires GitHub de mes différents projets<br />
-									en tant que Data Scientist.</p>
-								</header>
+		/* ══════════════════════════════════════════
+		   SCROLL REVEAL
+		══════════════════════════════════════════ */
+		.reveal {
+			opacity: 0;
+			transform: translateY(30px);
+			transition: opacity 0.7s ease, transform 0.7s ease;
+		}
+		.reveal.visible {
+			opacity: 1;
+			transform: translateY(0);
+		}
 
-								<ul class="features">
+		/* ══════════════════════════════════════════
+		   CLEARFIX
+		══════════════════════════════════════════ */
+		.intro-block::after { content: ""; display: table; clear: both; }
+		#intro .spotlight { display: block !important; }
+	</style>
+</head>
+<body class="is-preload">
 
-									<li>
-										<article class="col-6 col-12-xsmall work-item">
-											<a href="https://github.com/Ecknard/OCr_DS_P2" class="image fit thumb" target="_blank">
-												<img src="images/DS_P2.png" alt="Analyse systèmes éducatifs" />
-											</a>
-											<h3 style="text-align:center;"><strong>1) Analyse des données de systèmes éducatifs</strong></h3>
-											<p>OBJECTIF : Déterminer des pays à fort potentiel pour l'installation d'une entreprise d'enseignement à distance.</p>
-											<p style="text-align:center; font-size:0.78em;">PYTHON &#9679; ANALYSE EXPLORATOIRE &#9679; DATA VIZ</p>
-										</article>
-									</li>
+<div id="wrapper">
 
-									<li>
-										<article class="col-6 col-12-xsmall work-item">
-											<a href="https://github.com/Ecknard/OCr_DS_P3" class="image fit thumb" target="_blank">
-												<img src="images/DS_P3.png" alt="Application santé publique" />
-											</a>
-											<h3 style="text-align:center;"><strong>2) Conception d'une application au service de la santé publique</strong></h3>
-											<p>OBJECTIF : Analyse de la valeur nutritionnelle des biens de consommation afin de trouver des produits plus sains et plus responsables.</p>
-											<p style="text-align:center; font-size:0.78em;">ANALYSE EXPLORATOIRE &#9679; APPRENTISSAGE SUPERVISÉ (RÉGRESSION) &#9679; RÉDUCTION DE DIMENSION (ACP)</p>
-										</article>
-									</li>
+	<!-- Nav -->
+	<nav id="nav">
+		<ul>
+			<li><a href="#intro" class="active">Présentation</a></li>
+			<li><a href="#first">Data Science</a></li>
+			<li><a href="#second">Data Analyst</a></li>
+		</ul>
+	</nav>
 
-									<li>
-										<article class="col-6 col-12-xsmall work-item">
-											<a href="https://github.com/Ecknard/OCr_DS_P4" class="image fit thumb" target="_blank">
-												<img src="images/DS_P4.png" alt="Consommation bâtiments" />
-											</a>
-											<h3 style="text-align:center;"><strong>3) Anticipez les besoins en consommation de bâtiments</strong></h3>
-											<p>OBJECTIF : Prédire les émissions de GES et la consommation d'électricité de bâtiments.</p>
-											<p style="text-align:center; font-size:0.78em;">ANALYSE EXPLORATOIRE &#9679; APPRENTISSAGE SUPERVISÉ (RÉGRESSION) &#9679; INTERPRÉTATION DE MODÈLE (SHAP)</p>
-										</article>
-									</li>
+	<div id="main">
 
-									<li>
-										<article class="col-6 col-12-xsmall work-item">
-											<a href="https://github.com/Ecknard/OCr_DS_P5" class="image fit thumb" target="_blank">
-												<img src="images/DS_P5.png" alt="Segmentation clients e-commerce" />
-											</a>
-											<h3 style="text-align:center;"><strong>4) Segmentation des clients d'un site e-commerce</strong></h3>
-											<p>OBJECTIF : Segmenter et décrire les groupes de clients d'une entreprise de e-commerce.</p>
-											<p style="text-align:center; font-size:0.78em;">CLASSIFICATION NON SUPERVISÉE (KMEANS, CAH, DBSCAN) &#9679; RÉDUCTION DE DIMENSION (ACP, TSNE)</p>
-										</article>
-									</li>
+		<!-- ══ INTRO ══ -->
+		<section id="intro" class="main">
+			<div class="intro-block">
 
-									<li>
-										<article class="col-6 col-12-xsmall work-item">
-											<a href="https://github.com/Ecknard/OCr_DS_P6" class="image fit thumb" target="_blank">
-												<img src="images/DS_P6.png" alt="Classification biens de consommation" />
-											</a>
-											<h3 style="text-align:center;"><strong>5) Classification automatique des biens de consommation</strong></h3>
-											<p>OBJECTIF : Réaliser une segmentation sur des données textuelles (descriptions) et visuelles (photos de produits).</p>
-											<p style="text-align:center; font-size:0.78em;">DEEP LEARNING &#9679; NLP &#9679; COMPUTER VISION &#9679; CLASSIFICATION NON SUPERVISÉE</p>
-										</article>
-									</li>
+				<!-- Photo flottante avec anneau animé -->
+				<div class="intro-photo-float">
+					<img src="images/photo.png" alt="Photo Samuel MENSAH" />
+				</div>
 
-									<li>
-										<article class="col-6 col-12-xsmall work-item">
-											<a href="https://github.com/Ecknard/OCr_DS_P7" class="image fit thumb" target="_blank">
-												<img src="images/DS_P7.png" alt="Prédiction remboursement crédit" />
-											</a>
-											<h3 style="text-align:center;"><strong>6) Mise en oeuvre d'un outil de prédiction de remboursement de crédit</strong></h3>
-											<p>OBJECTIF : Prédire la capacité d'un client à rembourser son prêt, déployer le modèle sous forme d'API et générer un dashboard dans le cloud.</p>
-											<p style="text-align:center; font-size:0.78em;">MLOPS : MLFLOW TRACKING &#9679; DÉPLOIEMENT DE MODÈLE &#9679; DASHBOARD (STREAMLIT) &#9679; DOCKER</p>
-										</article>
-									</li>
+				<!-- Nom + titre -->
+				<header class="major" style="margin-bottom:0.6rem;">
+					<h2>MENSAH Samuel</h2>
+					<h3><strong>Data Scientist | Machine Learning · MLOps · Big Data &amp; IA</strong></h3>
+				</header>
 
-									<li>
-										<article class="col-6 col-12-xsmall work-item">
-											<a href="https://github.com/Ecknard/OCr_DS_P8" class="image fit thumb" target="_blank">
-												<img src="images/DS_P8.png" alt="Déploiement modèle cloud" />
-											</a>
-											<h3 style="text-align:center;"><strong>7) Déploiement d'un modèle dans le cloud</strong></h3>
-											<p>OBJECTIF : Utiliser un environnement cloud AWS pour extraire les caractéristiques d'images dans un contexte de Big Data.</p>
-											<p style="text-align:center; font-size:0.78em;">CLOUD COMPUTING AWS &#9679; SPARK &#9679; TRANSFER LEARNING</p>
-										</article>
-									</li>
+				<!-- Biographie -->
+				<p style="text-indent:2em; text-align:justify; margin:0 0 0.85em 0;">
+				Convaincu que la donnée est un levier stratégique de premier plan, j'ai construit un parcours académique d'excellence de niveau Bac+5, alliant rigueur scientifique et maîtrise opérationnelle des systèmes data modernes. J'ai d'abord obtenu un <b>Master Mathématiques Appliquées, Statistiques — parcours Statistique &amp; Data Science, Ingénierie Mathématique</b> à l'Université d'Orléans, où j'ai développé des fondements solides en statistiques inférentielles et bayésiennes, en machine learning supervisé et non supervisé, ainsi qu'en deep learning et réseaux de neurones (CNN, RNN, Transformers). Cette formation m'a appris à modéliser des phénomènes complexes avec exigence mathématique, aussi bien dans des contextes industriels (R&amp;D, ingénierie) que dans les secteurs de la santé, de la finance et de l'environnement. J'ai ensuite consolidé ce socle par un titre d'<b>Expert en Systèmes d'Information, spécialité Big Data &amp; IA</b> à l'École Léonard de Vinci (ESILV), programme Grande École reconnu au niveau Bac+5, qui m'a permis d'acquérir une vision à 360° des projets data en entreprise : définition de stratégie data, management de projets en ingénierie de données massives, gouvernance, gestion des risques et conformité (RGPD, qualité des données), conception et déploiement d'infrastructures cloud-native (Data Lakes, pipelines ETL/ELT, architectures Lambda et Kappa), ainsi que le développement et la mise en production de solutions d'IA avancées. Cette double compétence — <b>rigueur mathématique</b> et <b>vision système</b> — me permet d'intervenir sur l'ensemble de la chaîne de valeur de la donnée : de l'exploration et du nettoyage de jeux de données complexes, à la modélisation prédictive et au déploiement de modèles robustes en production (MLOps), en passant par la visualisation d'insights à forte valeur ajoutée pour les décideurs. Vous trouverez sur ce portfolio les répertoires GitHub de mes différents projets réalisés durant mon parcours.
+				</p>
 
-								</ul>
-							</section>
-
-						<!-- Data Analyst Section -->
-							<section id="second" class="main special">
-								<header class="major">
-									<h2>Data Analyst</h2>
-									<ul class="statistics">
-										<li class="style1">
-											<span class="icon fa-folder-open"></span>
-											<strong>5</strong> Projets totaux
-										</li>
-										<li class="style3">
-											<span class="icon solid fa-graduation-cap"></span><br/>
-											Titre RNCP <strong>Niveau 7</strong> (Bac+5)
-										</li>
-										<li class="style4">
-											<span class="icon solid fa-university"></span><br/>
-											Formation<br/>
-											Mathématiques appliquées statistiques, Big data et IA
-										</li>
-									</ul>
-									<p>Vous trouverez ici les répertoires GitHub de mes différents projets<br />
-									en tant que Data Analyst.</p>
-								</header>
-
-								<ul class="features">
-
-									<li>
-										<article class="col-6 col-12-xsmall work-item">
-											<a href="https://github.com/Ecknard/OCr_Dan_P4" class="image fit thumb" target="_blank">
-												<img src="images/Dan_P4.png" alt="Étude santé publique" />
-											</a>
-											<h3 style="text-align:center;"><strong>1) Étude de santé publique</strong></h3>
-											<p>OBJECTIF : Analyse de la répartition de la sous-alimentation mondiale, de la capacité de production alimentaire et détermination de causes possibles de sous-nutrition.</p>
-											<p style="text-align:center; font-size:0.78em;">R &#9679; PYTHON &#9679; REPRÉSENTATIONS GRAPHIQUES</p>
-										</article>
-									</li>
-
-									<li>
-										<article class="col-6 col-12-xsmall work-item">
-											<a href="https://github.com/Ecknard/OCr_Dan_P5" class="image fit thumb" target="_blank">
-												<img src="images/Dan_P5.png" alt="Gestion données boutique" />
-											</a>
-											<h3 style="text-align:center;"><strong>2) Optimisation de la gestion des données d'une boutique</strong></h3>
-											<p>OBJECTIF : Organiser les données (jointures) et analyser les ventes d'un marchand de vin.</p>
-											<p style="text-align:center; font-size:0.78em;">PYTHON &#9679; ANALYSE EXPLORATOIRE &#9679; REPRÉSENTATIONS GRAPHIQUES</p>
-										</article>
-									</li>
-
-									<li>
-										<article class="col-6 col-12-xsmall work-item">
-											<a href="https://github.com/Ecknard/OCr_Dan_P6" class="image fit thumb" target="_blank">
-												<img src="images/Dan_P6.png" alt="Analyse ventes en ligne" />
-											</a>
-											<h3 style="text-align:center;"><strong>3) Analyse des ventes en ligne</strong></h3>
-											<p>OBJECTIF : Analyser le chiffre d'affaires et le comportement des clients d'une boutique de vente de livres en ligne.</p>
-											<p style="text-align:center; font-size:0.78em;">ANALYSE EXPLORATOIRE &#9679; ANALYSES STATISTIQUES &#9679; REPRÉSENTATIONS GRAPHIQUES</p>
-										</article>
-									</li>
-
-									<li>
-										<article class="col-6 col-12-xsmall work-item">
-											<a href="https://github.com/Ecknard/OCr_Dan_P9" class="image fit thumb" target="_blank">
-												<img src="images/Dan_P9.png" alt="Étude de marché" />
-											</a>
-											<h3 style="text-align:center;"><strong>4) Étude de marché</strong></h3>
-											<p>OBJECTIF : Effectuer une étude de marché afin de déterminer les meilleurs pays pour y exporter du poulet.</p>
-											<p style="text-align:center; font-size:0.78em;">RÉCOLTE DE DONNÉES &#9679; RÉDUCTION DE DIMENSION (ACP) &#9679; CLASSIFICATION NON SUPERVISÉE (KMEANS, CAH)</p>
-										</article>
-									</li>
-
-									<li>
-										<article class="col-6 col-12-xsmall work-item">
-											<a href="https://github.com/Ecknard/OCr_Dan_P10" class="image fit thumb" target="_blank">
-												<img src="images/Dan_P10.png" alt="Détection faux billets" />
-											</a>
-											<h3 style="text-align:center;"><strong>5) Détection de faux billets</strong></h3>
-											<p>OBJECTIF : Utiliser des algorithmes de classification supervisée afin de prédire la véracité d'un billet à partir de ses dimensions.</p>
-											<p style="text-align:center; font-size:0.78em;">MACHINE LEARNING &#9679; STATISTIQUES &#9679; CLASSIFICATION SUPERVISÉE &#9679; APPLICATION PYTHON</p>
-										</article>
-									</li>
-
-								</ul>
-							</section>
-
+				<!-- Boutons -->
+				<div class="btn-row">
+					<a href="images/CV_Samuel_Mensah.pdf" class="btn-modern btn-primary-mod" target="_blank">📄 CV</a>
+					<a href="images/Attestation de réussite_Samuel_Mensah.pdf" class="btn-modern btn-secondary-mod" target="_blank">🎓 Attestation</a>
+					<div class="cert-wrapper">
+						<button class="btn-modern btn-secondary-mod" id="certBtn">🏅 Certificats ▾</button>
+						<div id="certMenu">
+							<a href="images/KODJO-SAMUEL-MENSAH-Devenir-secouriste-8211-les-gestes-qui-sauvent-en-videos-Attestation-de-formation--Gestes-qui-sauvent-en-videos-E-learning-Stoporisk.pdf" target="_blank">
+								<span style="font-size:1.3em;">🩹</span>
+								<span>Gestes qui sauvent en vidéos<span class="sub">Stoporisk · E-learning</span></span>
+							</a>
+							<a href="images/KODJO-SAMUEL-MENSAH-Devenir-secouriste-Les-gestes-qui-sauvent-Attestation-de-formation--Gestes-qui-sauvent-E-learning-Stoporisk.pdf" target="_blank">
+								<span style="font-size:1.3em;">🩹</span>
+								<span>Devenir secouriste — Gestes qui sauvent<span class="sub">Stoporisk · E-learning</span></span>
+							</a>
+							<a href="images/KODJO-SAMUEL-MENSAH-Equipier-de-1ere-intervention-incendie-Attestation-de-formation--EPI-2-E-learning-Stoporisk.pdf" target="_blank">
+								<span style="font-size:1.3em;">🔥</span>
+								<span>Équipier de 1ère intervention incendie — EPI-2<span class="sub">Stoporisk · E-learning</span></span>
+							</a>
+						</div>
 					</div>
+				</div>
 
-				<!-- Footer -->
-					<footer id="footer">
-						<p class="copyright">&copy; MENSAH Samuel. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
-					</footer>
+			</div><!-- /.intro-block -->
 
+			<!-- Contact -->
+			<div class="section-title reveal">Contact</div>
+			<div class="contact-grid reveal">
+				<div class="contact-pill">
+					<span class="icon">✉️</span>
+					<span>mensahkodjosamuel26@gmail.com</span>
+				</div>
+				<a href="https://www.linkedin.com/in/samuel-mensah-699592221" class="contact-pill" target="_blank">
+					<span class="icon">💼</span>
+					<span>LinkedIn</span>
+				</a>
+				<a href="https://github.com/Ecknard?tab=repositories" class="contact-pill" target="_blank">
+					<span class="icon">🐙</span>
+					<span>GitHub</span>
+				</a>
 			</div>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+			<!-- Compétences -->
+			<div class="section-title reveal">Compétences principales</div>
 
-	</body>
+			<div class="skills-group reveal">
+				<div class="skills-group-label">Data Science</div>
+				<div class="pills-row">
+					<span class="pill"><img src="images/python.png" alt=""/> Python</span>
+					<span class="pill"><img src="images/Rstudio.png" alt=""/> R</span>
+					<span class="pill">SQL</span>
+					<span class="pill">Machine Learning</span>
+					<span class="pill">Deep Learning</span>
+					<span class="pill"><img src="images/computer_vision.png" alt=""/> Computer Vision</span>
+					<span class="pill">NLP</span>
+					<span class="pill"><img src="images/pyspark.png" alt=""/> PySpark</span>
+					<span class="pill"><img src="images/Cloud Computing.png" alt=""/> AWS · Azure</span>
+				</div>
+			</div>
+
+			<div class="skills-group reveal">
+				<div class="skills-group-label">Data Analyst</div>
+				<div class="pills-row">
+					<span class="pill"><img src="images/python.png" alt=""/> Python</span>
+					<span class="pill"><img src="images/Rstudio.png" alt=""/> R</span>
+					<span class="pill">SQL</span>
+					<span class="pill">Analyse Exploratoire</span>
+					<span class="pill">Analyses Statistiques</span>
+					<span class="pill"><img src="images/tableau.png" alt=""/> Tableau</span>
+					<span class="pill"><img src="images/power_bi.png" alt=""/> Power BI</span>
+				</div>
+			</div>
+
+			<div class="skills-group reveal">
+				<div class="skills-group-label">MLOps &amp; Déploiement</div>
+				<div class="pills-row">
+					<span class="pill"><img src="images/MLflow.png" alt=""/> MLflow</span>
+					<span class="pill"><img src="images/docker.png" alt=""/> Docker</span>
+					<span class="pill"><img src="images/api.png" alt=""/> API REST</span>
+					<span class="pill"><img src="images/streamlit.png" alt=""/> Streamlit</span>
+					<span class="pill"><img src="images/git.png" alt=""/> Git</span>
+				</div>
+			</div>
+
+		</section>
+
+		<!-- ══ DATA SCIENCE ══ -->
+		<section id="first" class="main special">
+			<header class="major">
+				<h2>Data Science</h2>
+				<ul class="statistics">
+					<li class="style1">
+						<span class="icon fa-folder-open"></span>
+						<strong>7</strong> Projets totaux
+					</li>
+					<li class="style3">
+						<span class="icon solid fa-graduation-cap"></span><br/>
+						Titre RNCP <strong>Niveau 7</strong> (Bac+5)
+					</li>
+					<li class="style4">
+						<span class="icon solid fa-university"></span><br/>
+						Formation<br/>Mathématiques appliquées statistiques, Big data et IA
+					</li>
+				</ul>
+				<p>Vous trouverez ici les répertoires GitHub de mes différents projets<br/>en tant que Data Scientist.</p>
+			</header>
+
+			<ul class="features">
+				<li>
+					<article class="col-6 col-12-xsmall work-item">
+						<a href="https://github.com/Ecknard/OCr_DS_P2" class="image fit thumb" target="_blank"><img src="images/DS_P2.png" alt="Analyse systèmes éducatifs"/></a>
+						<h3><strong>1) Analyse des données de systèmes éducatifs</strong></h3>
+						<p>OBJECTIF : Déterminer des pays à fort potentiel pour l'installation d'une entreprise d'enseignement à distance.</p>
+						<p>PYTHON &#9679; ANALYSE EXPLORATOIRE &#9679; DATA VIZ</p>
+					</article>
+				</li>
+				<li>
+					<article class="col-6 col-12-xsmall work-item">
+						<a href="https://github.com/Ecknard/OCr_DS_P3" class="image fit thumb" target="_blank"><img src="images/DS_P3.png" alt="Application santé publique"/></a>
+						<h3><strong>2) Conception d'une application au service de la santé publique</strong></h3>
+						<p>OBJECTIF : Analyse de la valeur nutritionnelle des biens de consommation afin de trouver des produits plus sains et plus responsables.</p>
+						<p>ANALYSE EXPLORATOIRE &#9679; APPRENTISSAGE SUPERVISÉ (RÉGRESSION) &#9679; RÉDUCTION DE DIMENSION (ACP)</p>
+					</article>
+				</li>
+				<li>
+					<article class="col-6 col-12-xsmall work-item">
+						<a href="https://github.com/Ecknard/OCr_DS_P4" class="image fit thumb" target="_blank"><img src="images/DS_P4.png" alt="Consommation bâtiments"/></a>
+						<h3><strong>3) Anticipez les besoins en consommation de bâtiments</strong></h3>
+						<p>OBJECTIF : Prédire les émissions de GES et la consommation d'électricité de bâtiments.</p>
+						<p>ANALYSE EXPLORATOIRE &#9679; APPRENTISSAGE SUPERVISÉ (RÉGRESSION) &#9679; INTERPRÉTATION DE MODÈLE (SHAP)</p>
+					</article>
+				</li>
+				<li>
+					<article class="col-6 col-12-xsmall work-item">
+						<a href="https://github.com/Ecknard/OCr_DS_P5" class="image fit thumb" target="_blank"><img src="images/DS_P5.png" alt="Segmentation clients"/></a>
+						<h3><strong>4) Segmentation des clients d'un site e-commerce</strong></h3>
+						<p>OBJECTIF : Segmenter et décrire les groupes de clients d'une entreprise de e-commerce.</p>
+						<p>CLASSIFICATION NON SUPERVISÉE (KMEANS, CAH, DBSCAN) &#9679; RÉDUCTION DE DIMENSION (ACP, TSNE)</p>
+					</article>
+				</li>
+				<li>
+					<article class="col-6 col-12-xsmall work-item">
+						<a href="https://github.com/Ecknard/OCr_DS_P6" class="image fit thumb" target="_blank"><img src="images/DS_P6.png" alt="Classification biens"/></a>
+						<h3><strong>5) Classification automatique des biens de consommation</strong></h3>
+						<p>OBJECTIF : Réaliser une segmentation sur des données textuelles (descriptions) et visuelles (photos de produits).</p>
+						<p>DEEP LEARNING &#9679; NLP &#9679; COMPUTER VISION &#9679; CLASSIFICATION NON SUPERVISÉE</p>
+					</article>
+				</li>
+				<li>
+					<article class="col-6 col-12-xsmall work-item">
+						<a href="https://github.com/Ecknard/OCr_DS_P7" class="image fit thumb" target="_blank"><img src="images/DS_P7.png" alt="Prédiction crédit"/></a>
+						<h3><strong>6) Mise en oeuvre d'un outil de prédiction de remboursement de crédit</strong></h3>
+						<p>OBJECTIF : Prédire la capacité d'un client à rembourser son prêt, déployer le modèle sous forme d'API et générer un dashboard dans le cloud.</p>
+						<p>MLOPS : MLFLOW TRACKING &#9679; DÉPLOIEMENT DE MODÈLE &#9679; DASHBOARD (STREAMLIT) &#9679; DOCKER</p>
+					</article>
+				</li>
+				<li>
+					<article class="col-6 col-12-xsmall work-item">
+						<a href="https://github.com/Ecknard/OCr_DS_P8" class="image fit thumb" target="_blank"><img src="images/DS_P8.png" alt="Déploiement cloud"/></a>
+						<h3><strong>7) Déploiement d'un modèle dans le cloud</strong></h3>
+						<p>OBJECTIF : Utiliser un environnement cloud AWS pour extraire les caractéristiques d'images dans un contexte de Big Data.</p>
+						<p>CLOUD COMPUTING AWS &#9679; SPARK &#9679; TRANSFER LEARNING</p>
+					</article>
+				</li>
+			</ul>
+		</section>
+
+		<!-- ══ DATA ANALYST ══ -->
+		<section id="second" class="main special">
+			<header class="major">
+				<h2>Data Analyst</h2>
+				<ul class="statistics">
+					<li class="style1">
+						<span class="icon fa-folder-open"></span>
+						<strong>5</strong> Projets totaux
+					</li>
+					<li class="style3">
+						<span class="icon solid fa-graduation-cap"></span><br/>
+						Titre RNCP <strong>Niveau 7</strong> (Bac+5)
+					</li>
+					<li class="style4">
+						<span class="icon solid fa-university"></span><br/>
+						Formation<br/>Mathématiques appliquées statistiques, Big data et IA
+					</li>
+				</ul>
+				<p>Vous trouverez ici les répertoires GitHub de mes différents projets<br/>en tant que Data Analyst.</p>
+			</header>
+
+			<ul class="features">
+				<li>
+					<article class="col-6 col-12-xsmall work-item">
+						<a href="https://github.com/Ecknard/OCr_Dan_P4" class="image fit thumb" target="_blank"><img src="images/Dan_P4.png" alt="Étude santé publique"/></a>
+						<h3><strong>1) Étude de santé publique</strong></h3>
+						<p>OBJECTIF : Analyse de la répartition de la sous-alimentation mondiale, de la capacité de production alimentaire et détermination de causes possibles de sous-nutrition.</p>
+						<p>R &#9679; PYTHON &#9679; REPRÉSENTATIONS GRAPHIQUES</p>
+					</article>
+				</li>
+				<li>
+					<article class="col-6 col-12-xsmall work-item">
+						<a href="https://github.com/Ecknard/OCr_Dan_P5" class="image fit thumb" target="_blank"><img src="images/Dan_P5.png" alt="Gestion données boutique"/></a>
+						<h3><strong>2) Optimisation de la gestion des données d'une boutique</strong></h3>
+						<p>OBJECTIF : Organiser les données (jointures) et analyser les ventes d'un marchand de vin.</p>
+						<p>PYTHON &#9679; ANALYSE EXPLORATOIRE &#9679; REPRÉSENTATIONS GRAPHIQUES</p>
+					</article>
+				</li>
+				<li>
+					<article class="col-6 col-12-xsmall work-item">
+						<a href="https://github.com/Ecknard/OCr_Dan_P6" class="image fit thumb" target="_blank"><img src="images/Dan_P6.png" alt="Analyse ventes en ligne"/></a>
+						<h3><strong>3) Analyse des ventes en ligne</strong></h3>
+						<p>OBJECTIF : Analyser le chiffre d'affaires et le comportement des clients d'une boutique de vente de livres en ligne.</p>
+						<p>ANALYSE EXPLORATOIRE &#9679; ANALYSES STATISTIQUES &#9679; REPRÉSENTATIONS GRAPHIQUES</p>
+					</article>
+				</li>
+				<li>
+					<article class="col-6 col-12-xsmall work-item">
+						<a href="https://github.com/Ecknard/OCr_Dan_P9" class="image fit thumb" target="_blank"><img src="images/Dan_P9.png" alt="Étude de marché"/></a>
+						<h3><strong>4) Étude de marché</strong></h3>
+						<p>OBJECTIF : Effectuer une étude de marché afin de déterminer les meilleurs pays pour y exporter du poulet.</p>
+						<p>RÉCOLTE DE DONNÉES &#9679; RÉDUCTION DE DIMENSION (ACP) &#9679; CLASSIFICATION NON SUPERVISÉE (KMEANS, CAH)</p>
+					</article>
+				</li>
+				<li>
+					<article class="col-6 col-12-xsmall work-item">
+						<a href="https://github.com/Ecknard/OCr_Dan_P10" class="image fit thumb" target="_blank"><img src="images/Dan_P10.png" alt="Détection faux billets"/></a>
+						<h3><strong>5) Détection de faux billets</strong></h3>
+						<p>OBJECTIF : Utiliser des algorithmes de classification supervisée afin de prédire la véracité d'un billet à partir de ses dimensions.</p>
+						<p>MACHINE LEARNING &#9679; STATISTIQUES &#9679; CLASSIFICATION SUPERVISÉE &#9679; APPLICATION PYTHON</p>
+					</article>
+				</li>
+			</ul>
+		</section>
+
+	</div><!-- /#main -->
+
+	<!-- Footer -->
+	<footer id="footer">
+		<p class="copyright">&copy; MENSAH Samuel. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+	</footer>
+
+</div><!-- /#wrapper -->
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.scrollex.min.js"></script>
+<script src="assets/js/jquery.scrolly.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+
+<script>
+	/* ── Dropdown Certificats ── */
+	(function() {
+		var btn  = document.getElementById('certBtn');
+		var menu = document.getElementById('certMenu');
+		btn.addEventListener('click', function(e) {
+			e.stopPropagation();
+			menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+		});
+		document.addEventListener('click', function() { if (menu) menu.style.display = 'none'; });
+		menu.addEventListener('click', function(e) { e.stopPropagation(); });
+	})();
+
+	/* ── Scroll Reveal ── */
+	(function() {
+		var els = document.querySelectorAll('.reveal');
+		var obs = new IntersectionObserver(function(entries) {
+			entries.forEach(function(e) {
+				if (e.isIntersecting) {
+					e.target.classList.add('visible');
+					obs.unobserve(e.target);
+				}
+			});
+		}, { threshold: 0.12 });
+		els.forEach(function(el) { obs.observe(el); });
+	})();
+
+	/* ── Staggered pill animations ── */
+	document.querySelectorAll('.skills-group').forEach(function(group, gi) {
+		group.querySelectorAll('.pill').forEach(function(pill, pi) {
+			pill.style.animationDelay = (gi * 0.1 + pi * 0.04) + 's';
+		});
+	});
+
+	/* ── Project cards stagger on scroll ── */
+	(function() {
+		var cards = document.querySelectorAll('.features li');
+		var obs2 = new IntersectionObserver(function(entries) {
+			entries.forEach(function(e, i) {
+				if (e.isIntersecting) {
+					setTimeout(function() {
+						e.target.style.opacity = '1';
+						e.target.style.transform = 'translateY(0)';
+					}, i * 80);
+					obs2.unobserve(e.target);
+				}
+			});
+		}, { threshold: 0.08 });
+		cards.forEach(function(c) {
+			c.style.opacity = '0';
+			c.style.transform = 'translateY(30px)';
+			c.style.transition = 'opacity 0.6s ease, transform 0.6s ease, border-color 0.35s ease, box-shadow 0.35s ease';
+			obs2.observe(c);
+		});
+	})();
+</script>
+
+</body>
 </html>
